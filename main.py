@@ -5,7 +5,7 @@ from utils.layer_exporter import export_layers
 import config
 
 def main():
-    path = "sample-input.jpg"
+    path = "skull.png"
     image_data = load_image(path)
 
     if config.CLUSTER_ALGORITHM == "kmeans":
