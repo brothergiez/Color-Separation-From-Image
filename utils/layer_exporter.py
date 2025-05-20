@@ -1,5 +1,5 @@
 import numpy as np
-from PIL import Image
+from PIL import Image, ImageFilter
 import os
 
 def rgb_to_hex(rgb):
@@ -37,3 +37,20 @@ def export_layers(labels, centers, out_dir, original_metadata, dot_size=1):
         }
         
         img.save(f"{out_dir}/layer_{i+1}_{hex_color}.png", **save_kwargs)
+
+def export_smooth_layers(labels, centers, probs, out_dir, blur_radius, original_metadata):
+    os.makedirs(out_dir, exist_ok=True)
+    h, w = labels.shape
+    
+    for i, color in enumerate(centers):
+        mask_hard = (labels == i).astype(np.uint8) * 255
+        
+        mask_soft = (probs[:, i].reshape((h, w)) * 255).astype(np.uint8)
+        
+        img_soft = Image.fromarray(mask_soft)
+        img_soft = img_soft.filter(ImageFilter.GaussianBlur(radius=blur_radius))
+        
+        hex_color = '#{:02x}{:02x}{:02x}'.format(*color)
+        img_soft.save(f"{out_dir}/layer_{i}_{hex_color}_soft.png")
+        
+        Image.fromarray(mask_hard).save(f"{out_dir}/layer_{i}_{hex_color}_hard.png")
