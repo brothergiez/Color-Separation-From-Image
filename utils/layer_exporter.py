@@ -35,8 +35,11 @@ def export_layers(labels, centers, out_dir, original_metadata, dot_size=1):
             'compress_level': 6,
             'dpi': original_metadata.get('dpi', (72, 72))
         }
+        print(f"{i+1} - layer_{i+1}_{hex_color}.png -> complete ✅")
         
         img.save(f"{out_dir}/layer_{i+1}_{hex_color}.png", **save_kwargs)
+
+    print(f"✅ Proccess complete. Result saved in /{out_dir} directory")
 
 def export_smooth_layers(labels, centers, probs, out_dir, blur_radius, original_metadata):
     os.makedirs(out_dir, exist_ok=True)

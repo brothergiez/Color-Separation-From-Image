@@ -1,4 +1,4 @@
-INPUT_IMAGE = "image-target.jpg"
+INPUT_IMAGE = "image-target.png"
 OUTPUT_DIR = "output_layers"
 OUTPUT_SMOOTH_DIR = "output_smooth_layers"
 

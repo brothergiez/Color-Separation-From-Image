@@ -50,4 +50,6 @@ def kmeans_cpu(data, k, max_iter=20, ensure_green=False, precision_mode=False, u
         centers = lab2rgb(centers) * 255
     
     centers = np.clip(centers, 0, 255).astype(np.uint8)
+    print(f"🕜 Please wait... image separation proccessing to {k} layers...")
+
     return labels.reshape(original_shape), centers
